@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <div class="appbody">
+      <center>
+
+        <div class="todobox pt-4">
+          <h1>To-Do List <i class="icon fas fa-plus-circle"></i></h1>
+          <div class="todoform my-1 py-1">
+            <form method="post">
+              {{ form }}
+              {% csrf_token %}
+              <input class="btn btn-primary py-1" type="Submit" value="Add Task">
+            </form>
+          </div>
+          {% if tolist %}
+            <table class='table table-bordered table-striped'>
+              {% for list in tolist %}
+              <tr>
+                <td class="task w-75" style="word-wrap: break-word">{{ list.task }}</td>
+                <td><center><a href="{% url 'todoapp:delete' list.id %}">Completed</a></center></td>
+              </tr>
+
+              {% endfor %}
+            </table>
+          {% else %}
+            <br><p>No task found</p>
+          {% endif %}
+        </div>
+      </center>
+    </div>
+
+
+{% endblock %}
